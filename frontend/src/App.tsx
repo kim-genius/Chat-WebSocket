@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
 
-function App() {
+const App = () => {
+  const ws = new WebSocket("ws://localhost:8001/'");
+  useEffect(() => {
+    (() => {
+      ws.onopen = (e) => {
+        console.log("success");
+      };
+
+      ws.onmessage = (e) => {
+        console.log("received message", e);
+      };
+
+      ws.onclose = (e) => {
+        console.log("close", e);
+      };
+    })();
+  }, []);
+
+  const onSendMessage = () => {
+    ws.send("hi");
+  };
+
+  const onCloseWS = () => {
+    ws.close(4000, "그냥");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" placeholder="아이디" />
+      <textarea />
+      <button onClick={onSendMessage}>send</button>
+      <button onClick={onCloseWS}>close</button>
     </div>
   );
-}
+};
 
 export default App;
