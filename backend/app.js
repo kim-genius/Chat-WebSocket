@@ -14,11 +14,11 @@ wss.on("connection", (ws) => {
 
   ws.on("close", (code, reason) => console.log("Client has disconnected!", code, reason));
 
-  ws.onerror = function () {
+  ws.onerror = () => {
     console.log("websocket error");
   };
 });
 
 app.listen(8000, () => {
-  console.log(`Example app listening on port 8000`);
+  console.log(`app listening on port 8000`);
 });

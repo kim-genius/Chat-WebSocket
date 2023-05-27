@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 const App = () => {
   const ws = new WebSocket("ws://localhost:8001/'");
+
   useEffect(() => {
     (() => {
       ws.onopen = (e) => {
